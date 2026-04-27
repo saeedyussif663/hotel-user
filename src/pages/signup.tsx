@@ -1,11 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
+  ArrowLeftIcon,
   BuildingsIcon,
   DeviceMobileIcon,
   EnvelopeIcon,
   LockIcon,
   UserIcon,
-  ArrowLeftIcon,
 } from '@phosphor-icons/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRef, useState } from 'react';
@@ -39,7 +39,7 @@ const signupSchema = z
       .optional()
       .refine(
         (val) => !val || /^\d{9}$/.test(val),
-        'Enter a valid 9-digit number (e.g. 244 123 456)'
+        'Enter a valid 9-digit number (e.g. 244 123 456)',
       ),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -60,7 +60,11 @@ function Logo() {
   return (
     <Link to="/" className="flex items-center gap-2.5 justify-center">
       <div className="size-8 rounded-md bg-primary flex items-center justify-center">
-        <BuildingsIcon size={16} weight="fill" className="text-primary-foreground" />
+        <BuildingsIcon
+          size={16}
+          weight="fill"
+          className="text-primary-foreground"
+        />
       </div>
       <span className="font-bold text-base tracking-tight">Aurea Hotel</span>
     </Link>
@@ -87,7 +91,10 @@ function OtpBoxes({
     if (digit && index < 5) boxRefs.current[index + 1]?.focus();
   }
 
-  function handleKeyDown(index: number, e: React.KeyboardEvent<HTMLInputElement>) {
+  function handleKeyDown(
+    index: number,
+    e: React.KeyboardEvent<HTMLInputElement>,
+  ) {
     if (e.key === 'Backspace' && !chars[index] && index > 0) {
       const prev = [...chars];
       prev[index - 1] = '';
@@ -98,7 +105,10 @@ function OtpBoxes({
 
   function handlePaste(e: React.ClipboardEvent<HTMLInputElement>) {
     e.preventDefault();
-    const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
+    const pasted = e.clipboardData
+      .getData('text')
+      .replace(/\D/g, '')
+      .slice(0, 6);
     onChange(pasted.padEnd(6, '').slice(0, 6).trimEnd());
     const focusIdx = Math.min(pasted.length, 5);
     boxRefs.current[focusIdx]?.focus();
@@ -109,7 +119,9 @@ function OtpBoxes({
       {chars.map((char, i) => (
         <input
           key={i}
-          ref={(el) => { boxRefs.current[i] = el; }}
+          ref={(el) => {
+            boxRefs.current[i] = el;
+          }}
           type="text"
           inputMode="numeric"
           maxLength={1}
@@ -138,14 +150,27 @@ export default function SignupPage() {
   const [direction, setDirection] = useState(1);
   const [email, setEmail] = useState('');
 
-  function goToOtp() { setDirection(1); setStep('otp'); }
-  function goBack()  { setDirection(-1); setStep('form'); }
+  function goToOtp() {
+    setDirection(1);
+    setStep('otp');
+  }
+  function goBack() {
+    setDirection(-1);
+    setStep('form');
+  }
 
   // ── Signup form ──
 
   const signupForm = useForm<SignupValues>({
     resolver: zodResolver(signupSchema),
-    defaultValues: { firstName: '', lastName: '', email: '', password: '', confirmPassword: '', phone: '' },
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      phone: '',
+    },
   });
 
   function onSignup(values: SignupValues) {
@@ -186,7 +211,9 @@ export default function SignupPage() {
                 <div className="flex flex-col items-center gap-4 text-center">
                   <Logo />
                   <div>
-                    <h1 className="text-2xl font-bold tracking-tight">Create your account</h1>
+                    <h1 className="text-2xl font-bold tracking-tight">
+                      Create your account
+                    </h1>
                     <p className="text-sm text-muted-foreground mt-1">
                       Join Aurea and manage all your stays in one place.
                     </p>
@@ -200,11 +227,28 @@ export default function SignupPage() {
                   className="w-full gap-2 h-10"
                   onClick={() => console.log('Google sign-up')}
                 >
-                  <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
-                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 48 48"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill="#EA4335"
+                      d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"
+                    />
+                    <path
+                      fill="#4285F4"
+                      d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"
+                    />
+                    <path
+                      fill="#FBBC05"
+                      d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"
+                    />
+                    <path
+                      fill="#34A853"
+                      d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"
+                    />
                   </svg>
                   Continue with Google
                 </Button>
@@ -217,7 +261,10 @@ export default function SignupPage() {
 
                 {/* Form */}
                 <Form {...signupForm}>
-                  <form onSubmit={signupForm.handleSubmit(onSignup)} className="flex flex-col gap-4">
+                  <form
+                    onSubmit={signupForm.handleSubmit(onSignup)}
+                    className="flex flex-col gap-4"
+                  >
                     {/* Name row */}
                     <div className="grid grid-cols-2 gap-3">
                       <FormField
@@ -232,7 +279,11 @@ export default function SignupPage() {
                                   size={16}
                                   className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
                                 />
-                                <Input placeholder="John" className="pl-9" {...field} />
+                                <Input
+                                  placeholder="John"
+                                  className="pl-9"
+                                  {...field}
+                                />
                               </div>
                             </FormControl>
                             <FormMessage />
@@ -343,7 +394,9 @@ export default function SignupPage() {
                         <FormItem>
                           <FormLabel>
                             Phone number{' '}
-                            <span className="text-muted-foreground font-normal">(optional)</span>
+                            <span className="text-muted-foreground font-normal">
+                              (optional)
+                            </span>
                           </FormLabel>
                           <FormControl>
                             <div className="flex">
@@ -359,7 +412,9 @@ export default function SignupPage() {
                                 maxLength={9}
                                 {...field}
                                 onChange={(e) =>
-                                  field.onChange(e.target.value.replace(/\D/g, ''))
+                                  field.onChange(
+                                    e.target.value.replace(/\D/g, ''),
+                                  )
                                 }
                               />
                             </div>
@@ -401,24 +456,34 @@ export default function SignupPage() {
                 <div className="flex flex-col items-center gap-4 text-center">
                   <Logo />
                   <div>
-                    <h1 className="text-2xl font-bold tracking-tight">Check your email</h1>
+                    <h1 className="text-2xl font-bold tracking-tight">
+                      Check your email
+                    </h1>
                     <p className="text-sm text-muted-foreground mt-1">
                       We sent a 6-digit code to{' '}
-                      <span className="text-foreground font-medium">{email}</span>.
-                      Enter it below to activate your account.
+                      <span className="text-foreground font-medium">
+                        {email}
+                      </span>
+                      . Enter it below to activate your account.
                     </p>
                   </div>
                 </div>
 
                 <Form {...otpForm}>
-                  <form onSubmit={otpForm.handleSubmit(onVerify)} className="flex flex-col gap-6">
+                  <form
+                    onSubmit={otpForm.handleSubmit(onVerify)}
+                    className="flex flex-col gap-6"
+                  >
                     <FormField
                       control={otpForm.control}
                       name="code"
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
-                            <OtpBoxes value={field.value} onChange={field.onChange} />
+                            <OtpBoxes
+                              value={field.value}
+                              onChange={field.onChange}
+                            />
                           </FormControl>
                           <FormMessage className="text-center" />
                         </FormItem>
