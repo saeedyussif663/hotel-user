@@ -1,10 +1,20 @@
 import { Button } from '@/components/ui/button';
+import { StarIcon } from '@phosphor-icons/react';
 import { motion } from 'framer-motion';
+import React from 'react';
 
-const stats = [
+const StarRating = () => (
+  <div className="flex gap-0.5 mb-2">
+    {Array.from({ length: 5 }).map((_, i) => (
+      <StarIcon key={i} size={20} weight="fill" className="text-yellow-400" />
+    ))}
+  </div>
+);
+
+const stats: { value: React.ReactNode; label: string }[] = [
   { value: '120+', label: 'Luxury Rooms' },
   { value: '4', label: 'Restaurants' },
-  { value: '5★', label: 'Guest Rating' },
+  { value: <StarRating />, label: 'Guest Rating' },
   { value: '24/7', label: 'Concierge' },
 ];
 
@@ -41,9 +51,11 @@ function StatsStrip() {
           key={stat.label}
           variants={fadeUp}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="bg-background px-6 py-5"
+          className="bg-background px-6 py-5 flex flex-col items-center text-center"
         >
-          <div className="text-2xl font-bold text-foreground mb-1">{stat.value}</div>
+          <div className="text-2xl font-bold text-foreground mb-1">
+            {stat.value}
+          </div>
           <div className="text-sm text-muted-foreground">{stat.label}</div>
         </motion.div>
       ))}
@@ -56,7 +68,6 @@ export default function Hero() {
     <section className="bg-background">
       <div className="max-w-7xl mx-auto px-6 pt-8 pb-24">
         <div className="flex flex-col lg:flex-row lg:items-center gap-12 lg:gap-16 mb-20">
-
           {/* Left — text */}
           <motion.div
             className="flex-1 min-w-0"
@@ -64,14 +75,17 @@ export default function Hero() {
             initial="hidden"
             animate="show"
           >
-            <motion.div variants={fadeUp} transition={{ duration: 0.5, ease: 'easeOut' }}>
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
+            >
               <Badge />
             </motion.div>
 
             <motion.h1
               variants={fadeUp}
               transition={{ duration: 0.6, ease: 'easeOut' }}
-              className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-foreground leading-[1.06] mb-6"
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.06] mb-6"
             >
               Where Every Stay
               <br />
@@ -84,7 +98,8 @@ export default function Hero() {
               className="text-lg text-muted-foreground max-w-lg leading-relaxed mb-10"
             >
               Refined comfort, seamless service, and thoughtfully curated
-              experiences — designed for guests who expect more than just a room.
+              experiences — designed for guests who expect more than just a
+              room.
             </motion.p>
 
             <motion.div
@@ -92,10 +107,13 @@ export default function Hero() {
               transition={{ duration: 0.5, ease: 'easeOut' }}
               className="flex flex-wrap gap-3"
             >
-              <Button className="h-11 px-7 text-[15px] font-semibold">
+              <Button className="h-11 px-14 text-[15px] font-semibold">
                 Book Your Stay
               </Button>
-              <Button variant="outline" className="h-11 px-7 text-[15px] font-semibold">
+              <Button
+                variant="outline"
+                className="h-11 px-14 text-[15px] font-semibold"
+              >
                 Explore Rooms
               </Button>
             </motion.div>

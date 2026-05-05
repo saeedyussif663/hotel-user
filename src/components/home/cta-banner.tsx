@@ -13,7 +13,7 @@ const fadeUp = {
 
 export default function CtaBanner() {
   return (
-    <section className="bg-primary py-20">
+    <section className="bg-[#0052b6] py-20">
       <motion.div
         className="max-w-7xl mx-auto px-6 text-center"
         variants={stagger}

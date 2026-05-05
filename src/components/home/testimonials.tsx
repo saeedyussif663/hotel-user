@@ -1,25 +1,28 @@
 import { Card } from '@/components/ui/card';
 import SectionBadge from '@/components/ui/section-badge';
-import { Quotes, Star } from '@phosphor-icons/react';
+import { QuotesIcon, StarIcon } from '@phosphor-icons/react';
 import { motion } from 'framer-motion';
 
 const testimonials = [
   {
     name: 'Sarah Mitchell',
     role: 'Business Traveller',
-    review: "The service was impeccable. Every detail was considered — from the pillow menu to the in-room espresso machine. I've stayed at many luxury hotels but Aurea stands apart in every way.",
+    review:
+      "The service was impeccable. Every detail was considered — from the pillow menu to the in-room espresso machine. I've stayed at many luxury hotels but Aurea stands apart in every way.",
     rating: 5,
   },
   {
     name: 'James Okonkwo',
     role: 'Honeymoon Guest',
-    review: 'Our honeymoon at Aurea was absolutely perfect. The suite was breathtaking, the staff went above and beyond, and the dining experience was one we will never forget.',
+    review:
+      'Our honeymoon at Aurea was absolutely perfect. The suite was breathtaking, the staff went above and beyond, and the dining experience was one we will never forget.',
     rating: 5,
   },
   {
     name: 'Priya Sharma',
     role: 'Family Vacation',
-    review: 'Travelling with kids can be stressful, but the team at Aurea made it completely effortless. The activities, the pool, and the attentive staff made it a trip the whole family will treasure.',
+    review:
+      'Travelling with kids can be stressful, but the team at Aurea made it completely effortless. The activities, the pool, and the attentive staff made it a trip the whole family will treasure.',
     rating: 5,
   },
 ];
@@ -38,16 +41,25 @@ function TestimonialCard({ t }: { t: (typeof testimonials)[number] }) {
       className="h-full"
     >
       <Card className="p-7 gap-5 rounded-2xl cursor-default h-full flex flex-col">
-        <Quotes size={28} weight="fill" className="text-primary/20" />
-        <p className="text-sm text-foreground leading-relaxed flex-1">"{t.review}"</p>
+        <QuotesIcon size={28} weight="fill" className="text-primary/20" />
+        <p className="text-sm text-foreground leading-relaxed flex-1">
+          "{t.review}"
+        </p>
         <div className="flex items-center justify-between gap-4">
           <div>
-            <div className="font-semibold text-sm text-foreground">{t.name}</div>
+            <div className="font-semibold text-sm text-foreground">
+              {t.name}
+            </div>
             <div className="text-xs text-muted-foreground">{t.role}</div>
           </div>
           <div className="flex items-center gap-0.5">
             {Array.from({ length: t.rating }).map((_, i) => (
-              <Star key={i} size={16} weight="fill" className="text-primary" />
+              <StarIcon
+                key={i}
+                size={16}
+                weight="fill"
+                className="text-yellow-400"
+              />
             ))}
           </div>
         </div>
@@ -72,7 +84,8 @@ export default function Testimonials() {
               What Our Guests Are Saying
             </h2>
             <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
-              Trusted by thousands of guests — rated 5 stars across all major travel platforms.
+              Trusted by thousands of guests — rated 5 stars across all major
+              travel platforms.
             </p>
           </div>
         </motion.div>
